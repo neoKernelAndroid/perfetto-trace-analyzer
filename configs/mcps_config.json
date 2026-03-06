@@ -1,0 +1,143 @@
+{
+  "cpu_tab": {
+    "G100": "c082cd",
+    "G200": "c082cd"
+  },
+  "animation_tag": {
+    "__FULL_TRACE__": {
+      "start_thread_name": "",
+      "start_process_name": "",
+      "start_tag": "(\\d+\\.\\d+):",
+      "start_tag_index": 0,
+      "ms_after_start": 0,
+      "end_thread_name": "",
+      "end_process_name": "",
+      "end_tag": "(\\d+\\.\\d+):",
+      "end_tag_index": -1,
+      "animation_thread_name": ""
+    },
+    "CLICK_TO_SETTINGS_FIRST_DOFRAME": {
+      "start_thread_name": "ssion.launcher3",
+      "start_process_name": "com.transsion.launcher3",
+      "start_tag": "ssion\\.launcher3.*?(\\d+\\.\\d+).*?dispatchInputEvent.*?ACTION_UP",
+      "start_tag_index": 0,
+      "ms_after_start": 0,
+      "end_thread_name": "",
+      "end_process_name": "",
+      "end_tag": "settings.*?(\\d+\\.\\d+).*?Choreographer#doFrame",
+      "end_tag_index": 0,
+      "animation_thread_name": "Settings"
+    },
+	  "LAUNCHER_ALL_APPS_SCROLL": {
+      "start_thread_name": "ssion.launcher3",
+      "start_process_name": "com.transsion.launcher3",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?G\\|\\d+\\|J<LAUNCHER_ALL_APPS_SCROLL>\\|J<LAUNCHER_ALL_APPS_SCROLL>\\|\\d+",
+      "start_tag_index": -1,
+      "ms_after_start": 0,
+      "end_thread_name": "ssion.launcher3",
+      "end_process_name": "com.transsion.launcher3",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?H\\|\\d+\\|J<LAUNCHER_ALL_APPS_SCROLL>\\|\\d+",
+      "end_tag_index": -1
+    },
+	"closeApp_Window_enter": {
+      "start_thread_name": "wmshell.anim",
+      "start_process_name": "com.android.systemui",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?S\\|\\d+\\|closeApp_Window_enter",
+      "start_tag_index": -1,
+      "ms_after_start": 0,
+      "end_thread_name": "wmshell.anim",
+      "end_process_name": "com.android.systemui",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?F\\|\\d+\\|closeApp_Window_enter",
+      "end_tag_index": -1
+    },
+	"openApp_Window_enter": {
+      "start_thread_name": "wmshell.anim",
+      "start_process_name": "com.android.systemui",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?S\\|\\d+\\|openApp_Window_enter",
+      "start_tag_index": -1,
+      "ms_after_start": 0,
+      "end_thread_name": "wmshell.anim",
+      "end_process_name": "com.android.systemui",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?F\\|\\d+\\|openApp_Window_enter",
+      "end_tag_index": -1
+    },
+    "LAUNCHER_APP_SWIPE_TO_RECENTS": {
+      "start_thread_name": "ssion.launcher3",
+      "start_process_name": "com.transsion.launcher3",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?G\\|pid\\|J<LAUNCHER_APP_SWIPE_TO_RECENTS::Home>\\|J<LAUNCHER_APP_SWIPE_TO_RECENTS::Home>\\|\\d+",
+      "start_tag_index": 0,
+      "ms_after_start": 0,
+      "end_thread_name": "ssion.launcher3",
+      "end_process_name": "com.transsion.launcher3",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?H\\|pid\\|J<LAUNCHER_APP_SWIPE_TO_RECENTS::Home>\\|\\d+",
+      "animation_thread_name": "ssion.launcher3",
+      "end_tag_index": 0
+    },
+    "LOCKSCREEN_UNLOCK_ANIMATION": {
+      "start_thread_name": "ndroid.systemui",
+      "start_process_name": "ndroid.systemui",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?G\\|\\d+\\|J<LOCKSCREEN_UNLOCK_ANIMATION>\\|J<LOCKSCREEN_UNLOCK_ANIMATION>\\|\\d+",
+      "start_tag_index": -1,
+      "ms_after_start": 0,
+      "end_thread_name": "ndroid.systemui",
+      "end_process_name": "ndroid.systemui",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?H\\|\\d+\\|J<LOCKSCREEN_UNLOCK_ANIMATION>\\|\\d+",
+      "end_tag_index": -1
+    },
+	  "NOTIFICATION_SHADE_EXPAND_COLLAPSE": {
+      "start_thread_name": "ndroid.systemui",
+      "start_process_name": "com.android.systemui",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?G\\|\\d+\\|J<NOTIFICATION_SHADE_EXPAND_COLLAPSE::Expand>\\|J<NOTIFICATION_SHADE_EXPAND_COLLAPSE::Expand>\\|\\d+",
+      "start_tag_index": -1,
+      "ms_after_start": 0,
+      "end_thread_name": "ndroid.systemui",
+      "end_process_name": "com.android.systemui",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?H\\|\\d+\\|J<NOTIFICATION_SHADE_EXPAND_COLLAPSE::Expand>\\|\\d+",
+      "end_tag_index": -1
+    },
+		"TRAN_CUJ_LAUNCHER_ANIMATION_SCROLL_HOME": {
+	  "start_thread_name": "ssion.launcher3",
+      "start_process_name": "com.transsion.launcher3",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?G\\|\\d+\\|J<TRAN_CUJ_LAUNCHER_ANIMATION_SCROLL_HOME>\\|J<TRAN_CUJ_LAUNCHER_ANIMATION_SCROLL_HOME>\\|\\d+",
+      "start_tag_index": -1,
+      "ms_after_start": 0,
+      "end_thread_name": "ssion.launcher3",
+      "end_process_name": "com.transsion.launcher3",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?H\\|\\d+\\|J<TRAN_CUJ_LAUNCHER_ANIMATION_SCROLL_HOME>\\|\\d+",
+      "end_tag_index": -1
+    },
+	"TRAN_CUJ_LAUNCHER_ANIMATION_SWIPE_UP_TO_HOME": {
+	  "start_thread_name": "ssion.launcher3",
+      "start_process_name": "com.transsion.launcher3",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?G\\|\\d+\\|J<TRAN_CUJ_LAUNCHER_ANIMATION_SWIPE_UP_TO_HOME::animator:App To Home>\\|J<TRAN_CUJ_LAUNCHER_ANIMATION_SWIPE_UP_TO_HOME::animator:App To Home>\\|\\d+",
+      "start_tag_index": -1,
+      "ms_after_start": 0,
+      "end_thread_name": "ssion.launcher3",
+      "end_process_name": "com.transsion.launcher3",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?H\\|\\d+\\|J<TRAN_CUJ_LAUNCHER_ANIMATION_SWIPE_UP_TO_HOME::animator:App To Home>\\|\\d+",
+      "end_tag_index": -1
+    },
+		"TRAN_CUJ_NOTIFICATION_SHADE_QS_EXPAND_COLLAPSE": {
+      "start_thread_name": "ndroid.systemui",
+      "start_process_name": "com.android.systemui",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?G\\|\\d+\\|J<TRAN_CUJ_NOTIFICATION_SHADE_QS_EXPAND_COLLAPSE::Expand>\\|J<TRAN_CUJ_NOTIFICATION_SHADE_QS_EXPAND_COLLAPSE::Expand>\\|\\d+",
+      "start_tag_index": -1,
+      "ms_after_start": 0,
+      "end_thread_name": "ndroid.systemui",
+      "end_process_name": "com.android.systemui",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?H\\|\\d+\\|J<TRAN_CUJ_NOTIFICATION_SHADE_QS_EXPAND_COLLAPSE::Expand>\\|\\d+",
+      "end_tag_index": -1
+    },
+		"VOLUME_CONTROL": {
+      "start_thread_name": "ndroid.systemui",
+      "start_process_name": "com.android.systemui",
+      "start_tag": "-pid.*?(\\d+\\.\\d+).*?G\\|\\d+\\|J<VOLUME_CONTROL::show>\\|J<VOLUME_CONTROL::show>\\|\\d+",
+      "start_tag_index": -1,
+      "ms_after_start": 0,
+      "end_thread_name": "ndroid.systemui",
+      "end_process_name": "com.android.systemui",
+      "end_tag": "-pid.*?(\\d+\\.\\d+).*?H\\|\\d+\\|J<VOLUME_CONTROL::show>\\|\\d+",
+      "end_tag_index": -1
+    }
+  }
+}

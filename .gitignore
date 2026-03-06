@@ -1,0 +1,113 @@
+# ========================================
+# Python
+# ========================================
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ========================================
+# Virtual Environment
+# ========================================
+venv/
+env/
+ENV/
+.venv
+
+# ========================================
+# IDE
+# ========================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ========================================
+# Build artifacts (exclude all)
+# ========================================
+build/
+dist/
+*.spec
+*.exe
+
+# ========================================
+# Logs and output
+# ========================================
+logs/
+*.log
+output/
+testResult/
+result/
+
+# ========================================
+# Temporary files
+# ========================================
+tmp/
+pylib_linux/
+release/
+
+# ========================================
+# Debug and test scripts (exclude all)
+# ========================================
+test_*.py
+check_*.py
+diagnose_*.py
+debug_*.py
+fix_*.py
+analyze_*.py
+verify_*.py
+integrate_*.py
+monitor_*.py
+analyse_trace.py
+start_analyse_mcps.py
+
+# ========================================
+# Documentation drafts (exclude)
+# ========================================
+*.md.bak
+*_INTEGRATION_*.md
+*_ANALYSIS_*.md
+*_README.txt
+Mali_*.md
+如何*.md
+查找*.md
+检查*.py
+
+# ========================================
+# Trace files (too large, exclude)
+# ========================================
+*.html
+*.perfetto-trace
+*.pftrace
+
+# ========================================
+# Temporary/test batch files (exclude)
+# ========================================
+run_test.bat
+run_analysis_simple.bat
+verify_installation_source.bat
+BUILD_SOURCE_RELEASE.bat
+COMPLETE_GUIDE.md
+
+# ========================================
+# Excel output files
+# ========================================
+*.xls
+*.xlsx

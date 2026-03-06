@@ -1,0 +1,534 @@
+{
+  "transsion-os16": {
+    "ClickIconOpen": {
+      "findPkgTag": "Transsion-start ",
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3"
+      },
+      "startActivity": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivity::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "openApp_Window_enter",
+        "process": "com.android.systemui"
+      }
+    },
+    "clickHomeExit": {
+      "findPkgTag": "Transsion-start ",
+      "ACTION_UP": {
+        "slice_tag": "pokeUserActivity",
+        "process": "system_server"
+      },
+      "startActivity": {
+        "slice_tag": "DisplayHomeButtonHandler",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "closeApp_Window_enter",
+        "process": "com.android.systemui"
+      }
+    },
+    "clickToRecent": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3:taskbar"
+      },
+      "startNewTransition": {
+        "slice_tag": "AIDL::java::IWindowOrganizerController::startNewTransition::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "appToRecents": {
+        "slice_tag": "animator:App To Recents",
+        "process": "com.transsion.launcher3"
+      }
+    },
+    "recentToApp": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3"
+      },
+      "startActivityFromRecents": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivityFromRecents::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "animatorTaskLaunch": {
+        "slice_tag": "animator:Task Launch",
+        "process": "com.transsion.launcher3"
+      }
+    }
+  },
+  "transsion-os16-full": {
+    "ClickIconOpen": {
+      "findPkgTag": "Transsion-start ",
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3"
+      },
+      "startActivity": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivity::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "openApp_Window",
+        "process": "com.transsion.launcher3"
+      }
+    },
+    "clickHomeExit": {
+      "findPkgTag": "Transsion-start ",
+      "ACTION_UP": {
+        "slice_tag": "pokeUserActivity",
+        "process": "system_server"
+      },
+      "startActivity": {
+        "slice_tag": "DisplayHomeButtonHandler",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "closeApp_Window",
+        "process": "com.transsion.launcher3"
+      }
+    },
+    "clickToRecent": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3:taskbar"
+      },
+      "startNewTransition": {
+        "slice_tag": "AIDL::java::IWindowOrganizerController::startNewTransition::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "appToRecents": {
+        "slice_tag": "animator:App To Recents",
+        "process": "com.transsion.launcher3"
+      }
+    },
+    "recentToApp": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3"
+      },
+      "startActivityFromRecents": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivityFromRecents::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "animatorTaskLaunch": {
+        "slice_tag": "animator:Task Launch",
+        "process": "com.transsion.launcher3"
+      }
+    }
+  },
+  "transsion-infinix": {
+    "ClickIconOpen": {
+      "findPkgTag": "Transsion-start ",
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.XOSLauncher"
+      },
+      "startActivity": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivity::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "openApp_Window_enter",
+        "process": "com.android.systemui"
+      }
+    },
+    "clickHomeExit": {
+      "findPkgTag": "Transsion-start ",
+      "ACTION_UP": {
+        "slice_tag": "pokeUserActivity",
+        "process": "system_server"
+      },
+      "startActivity": {
+        "slice_tag": "DisplayHomeButtonHandler",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "closeApp_Window_enter",
+        "process": "com.android.systemui"
+      }
+    },
+    "clickToRecent": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3:taskbar"
+      },
+      "startNewTransition": {
+        "slice_tag": "AIDL::java::IWindowOrganizerController::startNewTransition::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "appToRecents": {
+        "slice_tag": "animator:App To Recents",
+        "process": "com.transsion.launcher3"
+      }
+    },
+    "recentToApp": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3"
+      },
+      "startActivityFromRecents": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivityFromRecents::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "animatorTaskLaunch": {
+        "slice_tag": "animator:Task Launch",
+        "process": "com.transsion.launcher3"
+      }
+    }
+  },
+  "transsion-tecno": {
+    "ClickIconOpen": {
+      "findPkgTag": "Transsion-start ",
+      "ACTION_UP": {
+        "slice_tag": "pokeUserActivity",
+        "process": "system_server"
+      },
+      "startActivity": {
+        "slice_tag": "DisplayHomeButtonHandler",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "openApp_Window_enter",
+        "process": "com.android.systemui"
+      }
+    },
+    "clickHomeExit": {
+      "findPkgTag": "Transsion-start ",
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3:taskbar"
+      },
+      "startActivity": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivity::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "closeApp_Window_enter",
+        "process": "com.android.systemui"
+      }
+    },
+    "clickToRecent": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3:taskbar"
+      },
+      "startNewTransition": {
+        "slice_tag": "AIDL::java::IWindowOrganizerController::startNewTransition::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "appToRecents": {
+        "slice_tag": "animator:App To Recents",
+        "process": "com.transsion.launcher3"
+      }
+    },
+    "recentToApp": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.transsion.launcher3"
+      },
+      "startActivityFromRecents": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivityFromRecents::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "animatorTaskLaunch": {
+        "slice_tag": "animator:Task Launch",
+        "process": "com.transsion.launcher3"
+      }
+    }
+  },
+  "com.miui.home": {
+    "ClickIconOpen": {
+      "findPkgTag": "launching:",
+      "ignore_package": "com.miui.home",
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.miui.home"
+      },
+      "startActivity": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivity::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+	  "openApp_Window": {
+        "slice_tag": "MHWAnimation# OPEN_FROM_HOME",
+        "process": "com.miui.home"
+      }
+    },
+    "clickHomeExit": {
+      "findPkgTag": "launching:",
+      "ignore_package": "com.miui.home",
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.android.systemui"
+      },
+      "startActivity": {
+        "slice_tag": "pokeUserActivity",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "MHWAnimation# CLOSE_TO_HOME",
+        "process": "com.miui.home"
+      }
+    },
+    "clickToRecent": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.android.systemui"
+      },
+      "startNewTransition": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivity::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "appToRecents": {
+        "slice_tag": "Transit: remote animation",
+        "process": "system_server"
+      }
+    },
+    "recentToApp": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.miui.home"
+      },
+      "startActivityFromRecents": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivityFromRecents::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "animatorTaskLaunch": {
+        "slice_tag": "MHWAnimation# OPEN_FROM_RECENTS",
+        "process": "com.miui.home"
+      }
+    }
+  },
+  "oppo": {
+    "ClickIconOpen": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.android.launcher"
+      },
+      "startActivity": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivity::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "window_animation: LAUNCH_APP",
+        "process": "com.android.launcher"
+      }
+    },
+    "clickHomeExit": {
+      "ACTION_UP": {
+        "slice_tag": "pokeUserActivity",
+        "process": "system_server"
+      },
+      "startActivity": {
+        "slice_tag": "executeStartActivity",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "menu_window_animation: MENU_BACK_TO_HOME",
+        "process": "com.android.launcher"
+      }
+    },
+    "clickToRecent": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.android.systemui"
+      },
+      "startNewTransition": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivity::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "appToRecents": {
+        "slice_tag": "menu_window_animation: MENU_TO_RECENTS",
+        "process": "com.android.launcher"
+      }
+    },
+    "recentToApp": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.android.launcher"
+      },
+      "startActivityFromRecents": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivityFromRecents::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "animatorTaskLaunch": {
+        "slice_tag": "appScene_LAUNCH_APP_FROM_RECENTS",
+        "process": "com.android.launcher"
+      }
+    }
+  },
+  "com.android.launcher3": {
+    "ClickIconOpen": {
+	  "findPkgTag": "vivo-start ",
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.android.launcher3"
+      },
+      "startActivity": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivity::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "openApp_Window",
+        "process": "com.android.launcher3"
+      }
+    },
+    "clickHomeExit": {
+      "findPkgTag": "vivo-start ",
+      "ACTION_UP": {
+        "slice_tag": "interceptKeyBeforeDispatching",
+        "process": "system_server"
+      },
+      "startActivity": {
+        "slice_tag": "DisplayHomeButtonHandler",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "openApp_Window": {
+        "slice_tag": "closeApp_Window",
+        "process": "com.android.launcher3"
+      }
+    },
+    "clickToRecent": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.android.systemui"
+      },
+      "startNewTransition": {
+        "slice_tag": "AIDL::java::IWindowOrganizerController::startNewTransition::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "appToRecents": {
+        "slice_tag": "animator:App To Recents",
+        "process": "com.android.launcher3"
+      }
+    },
+    "recentToApp": {
+      "ACTION_UP": {
+        "slice_tag": "dispatchInputEvent MotionEvent ACTION_UP",
+        "process": "com.android.launcher3"
+      },
+      "startActivityFromRecents": {
+        "slice_tag": "AIDL::java::IActivityTaskManager::startActivityFromRecents::server",
+        "process": "system_server"
+      },
+      "onTransitionReady": {
+        "slice_tag": "AIDL::java::ITransitionPlayer::onTransitionReady::server",
+        "process": "com.android.systemui"
+      },
+      "animatorTaskLaunch": {
+        "slice_tag": "animator:Task Launch",
+        "process": "com.android.launcher3"
+      }
+    }
+  }
+}
