@@ -12,7 +12,26 @@ class McpsExcel(object):
     def __init__(self, excel_path):
         self.excel_path = excel_path
 
-    def insert_mcps_data(self, mcps_by_group_dict, task_slice_dict, animation_thread_name, len_doframe, per_frame_load_dict=None, total_wall_duration=0.0, animation_time_range=0.0, cpu_usage_percent=0.0, top_20_processes=None, gpu_frame_count=0, gpu_total_time=0.0, gpu_avg_time_per_frame=0.0, gpu_frequency_intervals=None, gpu_load=0.0, sf_gpu_frame_count=0, sf_gpu_total_time=0.0, sf_gpu_avg_time_per_frame=0.0, sf_frame_layer_info=None):
+    def insert_mcps_data(self,
+                         mcps_by_group_dict,
+                         task_slice_dict,
+                         animation_thread_name,
+                         len_doframe,
+                         per_frame_load_dict=None,
+                         total_wall_duration=0.0,
+                         animation_time_range=0.0,
+                         cpu_usage_percent=0.0,
+                         top_20_processes=None,
+                         gpu_frame_count=0,
+                         gpu_total_time=0.0,
+                         gpu_avg_time_per_frame=0.0,
+                         gpu_frequency_intervals=None,
+                         gpu_load=0.0,
+                         sf_gpu_frame_count=0,
+                         sf_gpu_total_time=0.0,
+                         sf_gpu_avg_time_per_frame=0.0,
+                         sf_frame_layer_info=None,
+                         key_process_name=None):
         style0 = xlwt.easyxf('font: height 200  ,name Times New Roman, color-index blue, bold on')
         style1 = xlwt.easyxf('font: name calibri')
 
@@ -269,6 +288,100 @@ class McpsExcel(object):
                 gpu_freq_sheet.write(row_index_gpu, 3, float(duration), style1)
                 gpu_freq_sheet.write(row_index_gpu, 4, float(load), style1)
                 row_index_gpu += 1
+
+        # ------------------------------------------------------------------------------
+        # MCPS Result sheet summary block
+        # ------------------------------------------------------------------------------
+        summary_start_row = row_index + 2
+        cur_row = summary_start_row
+
+        # 1) 每帧线性负载汇总（Per-frame linear MCPS by task）
+        if per_frame_load_dict:
+            work_sheet_result.write(cur_row, 0, "Per-frame linear load (MCPS)", style0)
+            cur_row += 1
+
+            for task_name, load_info in per_frame_load_dict.items():
+                per_frame_linear_mcps = load_info.get('linear_mcps', 0.0)
+                work_sheet_result.write(cur_row, 0, task_name, style1)
+                work_sheet_result.write(cur_row, 1, "每帧线性负载(MCPS)", style1)
+                work_sheet_result.write(cur_row, 3, per_frame_linear_mcps, style1)
+                cur_row += 1
+
+        # 2) CPU usage summary：整体 + 关键进程 + GPU/Layer quick view
+        if cpu_usage_percent is not None:
+            cur_row += 1
+            work_sheet_result.write(cur_row, 0, "CPU usage summary", style0)
+            cur_row += 1
+
+            # overall
+            work_sheet_result.write(cur_row, 0, "Overall CPU usage", style1)
+            work_sheet_result.write(cur_row, 3, cpu_usage_percent, style1)
+            cur_row += 1
+
+            def _find_process_cpu_usage(name_keyword: str):
+                if not top_20_processes:
+                    return None
+                for proc in top_20_processes:
+                    proc_name = proc.get('process_name', '')
+                    if proc_name == name_keyword or name_keyword in proc_name:
+                        return proc.get('cpu_usage_percent', None)
+                return None
+
+            # system_server
+            system_server_usage = _find_process_cpu_usage("system_server")
+            if system_server_usage is not None:
+                work_sheet_result.write(cur_row, 0, "system_server", style1)
+                work_sheet_result.write(cur_row, 3, system_server_usage, style1)
+                cur_row += 1
+
+            # SurfaceFlinger
+            sf_usage = _find_process_cpu_usage("surfaceflinger")
+            if sf_usage is not None:
+                work_sheet_result.write(cur_row, 0, "surfaceflinger", style1)
+                work_sheet_result.write(cur_row, 3, sf_usage, style1)
+                cur_row += 1
+
+            # key monitored process (e.g. launcher / systemui)
+            if key_process_name:
+                key_usage = _find_process_cpu_usage(key_process_name)
+                if key_usage is None:
+                    # 有些进程名很长，只匹配关键子串（如 launcher3）
+                    short_name = key_process_name.split(".")[-1]
+                    key_usage = _find_process_cpu_usage(short_name)
+                if key_usage is not None:
+                    label = f"Key process ({key_process_name})"
+                    work_sheet_result.write(cur_row, 0, label, style1)
+                    work_sheet_result.write(cur_row, 3, key_usage, style1)
+                    cur_row += 1
+
+            # Separator / hint line (GPU metrics start from next row)
+            work_sheet_result.write(cur_row, 0, "GPU related metrics below", style0)
+            cur_row += 1
+
+            # RenderThread GPU average time per frame
+            if gpu_avg_time_per_frame > 0:
+                work_sheet_result.write(cur_row, 0, "RenderThread GPU统计", style1)
+                work_sheet_result.write(cur_row, 1, "平均每帧耗时(s)", style1)
+                work_sheet_result.write(cur_row, 3, gpu_avg_time_per_frame, style1)
+                cur_row += 1
+
+            # SurfaceFlinger GPU average time per frame
+            if sf_gpu_avg_time_per_frame > 0:
+                work_sheet_result.write(cur_row, 0, "SurfaceFlinger GPU统计", style1)
+                work_sheet_result.write(cur_row, 1, "平均每帧等待时间(s)", style1)
+                work_sheet_result.write(cur_row, 3, sf_gpu_avg_time_per_frame, style1)
+                cur_row += 1
+
+            # SurfaceFlinger maximum layer count
+            if sf_frame_layer_info and len(sf_frame_layer_info) > 0:
+                try:
+                    max_layers_summary = max(frame['layer_count'] for frame in sf_frame_layer_info)
+                    work_sheet_result.write(cur_row, 0, "SurfaceFlinger Layer统计", style1)
+                    work_sheet_result.write(cur_row, 1, "最大Layer数", style1)
+                    work_sheet_result.write(cur_row, 3, max_layers_summary, style1)
+                    cur_row += 1
+                except Exception as e:
+                    TEST_LOGGER.warn(f"计算SurfaceFlinger最大Layer数失败: {e}")
         
         # 添加 SurfaceFlinger 每帧 Layer 详细信息（如果有）
         if sf_frame_layer_info and len(sf_frame_layer_info) > 0:

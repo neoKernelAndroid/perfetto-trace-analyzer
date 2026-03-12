@@ -1239,24 +1239,25 @@ class TraceHtmlCpuMcps:
         result_file_path = os.path.join(result_dir, f"mcps_result_{file_name}_{self._start_animation_time}_{self._end_animation_time}.xls")
         excel = McpsExcel(result_file_path)
         excel.insert_mcps_data(
-            final_result_dict, 
-            detail_task_slice_dict, 
-            self._animation_thread_name, 
-            len_doframe, 
-            per_frame_load_dict, 
-            total_wall_duration, 
-            animation_time_range, 
-            cpu_usage_percent, 
-            top_20_processes, 
-            self._gpu_frame_count, 
-            self._gpu_total_time, 
-            self._gpu_avg_time_per_frame, 
-            self._gpu_frequency_intervals, 
+            final_result_dict,
+            detail_task_slice_dict,
+            self._animation_thread_name,
+            len_doframe,
+            per_frame_load_dict,
+            total_wall_duration,
+            animation_time_range,
+            cpu_usage_percent,
+            top_20_processes,
+            self._gpu_frame_count,
+            self._gpu_total_time,
+            self._gpu_avg_time_per_frame,
+            self._gpu_frequency_intervals,
             self._gpu_load,
             self._sf_gpu_frame_count,
             self._sf_gpu_total_time,
             self._sf_gpu_avg_time_per_frame,
-            self._sf_frame_layer_info
+            self._sf_frame_layer_info,
+            key_process_name=self._process_name
         )
 
     def _init(self):

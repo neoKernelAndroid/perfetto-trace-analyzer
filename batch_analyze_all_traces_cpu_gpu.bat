@@ -1,169 +1,162 @@
 @echo off
-setlocal EnableDelayedExpansion
+setlocal EnableExtensions EnableDelayedExpansion
 chcp 65001 >nul
 REM ========================================
-REM CPU GPU 批量分析工具
-REM 自动解析指定目录下所有 trace 文件
-REM 包括: MCPS, GPU MCPS, CPU Usage, 线程数
+REM CPU GPU ??????
+REM ??????????? trace ??
+REM ??: MCPS, GPU MCPS, CPU Usage, ???
 REM ========================================
 
 echo ========================================
-echo CPU GPU 批量分析工具
+echo CPU GPU ??????
 echo ========================================
 echo.
 
-REM 设置基础路径
-set BASE_TRACE_DIR=D:\new\hangguan\cpu\test\trace
-set SCRIPT_DIR=%~dp0
-set CPU_TYPE=G200
+REM Debug: set DEBUG=1 before running to see command trace
+if defined DEBUG echo on
 
-REM 检查 Python 是否安装
+REM Base settings
+set "BASE_TRACE_DIR=D:\new\hangguan\cpu\test\trace"
+set "SCRIPT_DIR=%~dp0"
+set "CPU_TYPE=G200"
+
+REM Optional overrides
+REM Usage:
+REM   batch_analyze_all_traces_cpu_gpu.bat [TraceRootDir] [CPU_TYPE]
+if not "%~1"=="" set "BASE_TRACE_DIR=%~1"
+if not "%~2"=="" set "CPU_TYPE=%~2"
+
+REM ?? Python ????
 python --version >nul 2>&1
 if errorlevel 1 (
-    echo [ERROR] 未找到 Python，请先安装 Python
+    echo [ERROR] ??? Python????? Python
     pause
     exit /b 1
 )
 
-REM 检查基础目录是否存在
+REM ??????????
 if not exist "%BASE_TRACE_DIR%" (
-    echo [ERROR] 目录不存在: %BASE_TRACE_DIR%
+    echo [ERROR] ?????: %BASE_TRACE_DIR%
     pause
     exit /b 1
 )
 
-echo [INFO] 开始批量分析...
-echo [INFO] 基础目录: %BASE_TRACE_DIR%
-echo [INFO] CPU 类型: %CPU_TYPE%
+echo [INFO] ??????...
+echo [INFO] ????: %BASE_TRACE_DIR%
+echo [INFO] CPU ??: %CPU_TYPE%
 echo.
 
-REM 统计变量
+REM ????
 set /a TOTAL_COUNT=0
 set /a SUCCESS_COUNT=0
 set /a FAIL_COUNT=0
 
-REM 创建日志文件
+REM ??????
 set TIMESTAMP=%date:~0,4%%date:~5,2%%date:~8,2%_%time:~0,2%%time:~3,2%%time:~6,2%
 set TIMESTAMP=%TIMESTAMP: =0%
 set LOG_FILE=%BASE_TRACE_DIR%\batch_analysis_log_%TIMESTAMP%.txt
-echo 批量分析日志 - %date% %time% > "%LOG_FILE%"
+echo ?????? - %date% %time% > "%LOG_FILE%"
 echo ======================================== >> "%LOG_FILE%"
 echo. >> "%LOG_FILE%"
 
-REM 遍历所有动效目录
-for /d %%D in ("%BASE_TRACE_DIR%\*") do (
-    set ANIMATION_DIR=%%D
-    set ANIMATION_NAME=%%~nxD
-    
-    REM 提取动效标签（去掉前面的数字和点）
-    for /f "tokens=2 delims=." %%A in ("!ANIMATION_NAME!") do set ANIMATION_TAG=%%A
-    
-    REM 如果没有点分隔符，直接使用整个名称
-    if "!ANIMATION_TAG!"=="" set ANIMATION_TAG=!ANIMATION_NAME!
-    
-    echo ========================================
-    echo [INFO] 正在处理动效: !ANIMATION_NAME!
-    echo [INFO] 动效标签: !ANIMATION_TAG!
-    echo ======================================== >> "%LOG_FILE%"
-    echo 动效: !ANIMATION_NAME! >> "%LOG_FILE%"
-    echo 标签: !ANIMATION_TAG! >> "%LOG_FILE%"
-    echo. >> "%LOG_FILE%"
-    
-    REM 根据动效名称设置进程和线程
-    call :SetProcessAndThreads "!ANIMATION_TAG!"
-    
-    echo [INFO] 配置 - 进程: !PROCESS_NAME!, 线程: !TASK_LIST!
-    echo.
-    
-    REM 遍历该动效下的所有子目录 (1, 2, 3, ...)
-    for /d %%S in ("%%D\*") do (
-        set TRACE_SUBDIR=%%S
-        set TRACE_HTML=%%S\trace-perfetto-con.html
-        set TRACE_PERFETTO=%%S\trace.perfetto-trace
-        
-        REM 检查 HTML trace 文件是否存在
-        if exist "!TRACE_HTML!" (
-            set /a TOTAL_COUNT+=1
-            echo.
-            echo [INFO] 正在分析 [!TOTAL_COUNT!]: %%~nxS
-            echo [INFO] 文件: !TRACE_HTML!
-            echo. >> "%LOG_FILE%"
-            echo 文件 [!TOTAL_COUNT!]: !TRACE_HTML! >> "%LOG_FILE%"
-            
-            REM 运行 MCPS 和 GPU 分析
-            echo [INFO] 步骤 1/2: 分析 MCPS 和 GPU...
-            python "%SCRIPT_DIR%run_gpu_analysis.py" -f "!TRACE_HTML!" -c "%CPU_TYPE%" -t "!TASK_LIST!" -p "!PROCESS_NAME!" -at "!ANIMATION_TAG!" >nul 2>&1
-            
-            if errorlevel 1 (
-                echo [ERROR] MCPS 分析失败
-                echo [ERROR] MCPS 分析失败 >> "%LOG_FILE%"
-                set /a FAIL_COUNT+=1
-            ) else (
-                echo [SUCCESS] MCPS 分析完成
-                echo [SUCCESS] MCPS 分析完成 >> "%LOG_FILE%"
-            )
-            
-            REM 运行线程数统计
-            if exist "!TRACE_PERFETTO!" (
-                echo [INFO] 步骤 2/2: 统计线程数...
-                python "%SCRIPT_DIR%export_thread_count_to_excel.py" "!TRACE_PERFETTO!" >nul 2>&1
-                
-                if errorlevel 1 (
-                    echo [WARN] 线程数统计失败
-                    echo [WARN] 线程数统计失败 >> "%LOG_FILE%"
-                ) else (
-                    echo [SUCCESS] 线程数统计完成
-                    echo [SUCCESS] 线程数统计完成 >> "%LOG_FILE%"
-                    set /a SUCCESS_COUNT+=1
-                )
-            ) else (
-                echo [WARN] 未找到 perfetto-trace 文件，跳过线程数统计
-                echo [WARN] 未找到 perfetto-trace 文件 >> "%LOG_FILE%"
-            )
-            
-            echo ----------------------------------------
-        ) else (
-            echo [WARN] 未找到 trace 文件: %%~nxS
-            echo [WARN] 未找到 trace 文件: %%S >> "%LOG_FILE%"
+REM Recursively scan all trace-perfetto-con.html, no fixed subdir assumptions
+for /r "%BASE_TRACE_DIR%" %%F in (trace-perfetto-con.html) do (
+    set "TRACE_HTML=%%~fF"
+
+    REM Skip incomplete folders: require a raw trace file alongside the html
+    set "HAS_RAW_TRACE=0"
+    if exist "%%~dpFtrace.perfetto-trace" set "HAS_RAW_TRACE=1"
+    if exist "%%~dpFtrace-perfetto.trace" set "HAS_RAW_TRACE=1"
+    if "!HAS_RAW_TRACE!"=="0" for %%T in ("%%~dpF*.perfetto-trace") do if exist "%%~fT" set "HAS_RAW_TRACE=1"
+    if "!HAS_RAW_TRACE!"=="0" for %%T in ("%%~dpF*.trace") do if exist "%%~fT" set "HAS_RAW_TRACE=1"
+    if "!HAS_RAW_TRACE!"=="0" (
+        echo [WARN] Skip - no raw trace near html: %%~fF
+        echo [WARN] Skip - no raw trace near html: %%~fF>> "%LOG_FILE%"
+        echo ---------------------------------------->> "%LOG_FILE%"
+        echo ----------------------------------------
+    ) else (
+        REM Derive animation directory as parent of the directory containing the trace html
+        for %%P in ("%%~dpF..") do (
+            set "ANIMATION_DIR=%%~fP"
+            set "ANIMATION_NAME=%%~nxP"
         )
-    )
-    
+
+    REM Extract animation tag: 1.TAG -> TAG ; if no dot, use full name
+    set "ANIMATION_TAG="
+    for /f "tokens=2 delims=." %%A in ("!ANIMATION_NAME!") do set "ANIMATION_TAG=%%A"
+    if "!ANIMATION_TAG!"=="" set "ANIMATION_TAG=!ANIMATION_NAME!"
+
+    call :SetProcessAndThreads "!ANIMATION_TAG!"
+
+    set /a TOTAL_COUNT+=1
     echo.
+    echo ========================================
+    echo [INFO] Analyzing [!TOTAL_COUNT!]
+    echo [INFO] Animation: !ANIMATION_NAME!
+    echo [INFO] Tag: !ANIMATION_TAG!
+    echo [INFO] HTML: !TRACE_HTML!
+    echo [INFO] Config - Process: !PROCESS_NAME!, Threads: !TASK_LIST!
+    echo ========================================
+
+    echo.>> "%LOG_FILE%"
+    echo ========================================>> "%LOG_FILE%"
+    echo [!TOTAL_COUNT!] Animation: !ANIMATION_NAME!>> "%LOG_FILE%"
+    echo Tag: !ANIMATION_TAG!>> "%LOG_FILE%"
+    echo HTML: !TRACE_HTML!>> "%LOG_FILE%"
+    echo Process: !PROCESS_NAME!>> "%LOG_FILE%"
+    echo Threads: !TASK_LIST!>> "%LOG_FILE%"
+
+    REM Run GPU + MCPS analysis only, no thread count export
+    echo [INFO] GPU+MCPS analysis...
+    python "%SCRIPT_DIR%run_gpu_analysis.py" -f "!TRACE_HTML!" -c "%CPU_TYPE%" -t "!TASK_LIST!" -p "!PROCESS_NAME!" -at "!ANIMATION_TAG!" >> "%LOG_FILE%" 2>&1
+    if errorlevel 1 (
+        echo [ERROR] GPU+MCPS analysis failed, see log
+        echo [ERROR] GPU+MCPS analysis failed>> "%LOG_FILE%"
+        set /a FAIL_COUNT+=1
+    ) else (
+        echo [SUCCESS] GPU+MCPS analysis done
+        echo [SUCCESS] GPU+MCPS analysis done>> "%LOG_FILE%"
+        set /a SUCCESS_COUNT+=1
+    )
+
+    echo ---------------------------------------->> "%LOG_FILE%"
+    echo ----------------------------------------
+    )
 )
 
-REM 输出统计结果
+REM Summary output
 echo.
 echo ========================================
-echo 批量分析完成！
+echo Batch analysis finished
 echo ========================================
-echo 总计: %TOTAL_COUNT% 个 trace 文件
-echo 成功: %SUCCESS_COUNT% 个
-echo 失败: %FAIL_COUNT% 个
+echo Total traces: %TOTAL_COUNT%
+echo Success: %SUCCESS_COUNT%
+echo Failed : %FAIL_COUNT%
 echo.
-echo 日志文件: %LOG_FILE%
+echo Log file: %LOG_FILE%
 echo ========================================
 
 echo. >> "%LOG_FILE%"
 echo ======================================== >> "%LOG_FILE%"
-echo 统计结果: >> "%LOG_FILE%"
-echo 总计: %TOTAL_COUNT% 个 >> "%LOG_FILE%"
-echo 成功: %SUCCESS_COUNT% 个 >> "%LOG_FILE%"
-echo 失败: %FAIL_COUNT% 个 >> "%LOG_FILE%"
+echo Summary: >> "%LOG_FILE%"
+echo Total traces: %TOTAL_COUNT% >> "%LOG_FILE%"
+echo Success: %SUCCESS_COUNT% >> "%LOG_FILE%"
+echo Failed : %FAIL_COUNT% >> "%LOG_FILE%"
 
 pause
 exit /b 0
 
 REM ========================================
-REM 子程序：根据动效标签设置进程和线程
+REM ?????????????????
 REM ========================================
 :SetProcessAndThreads
 set TAG=%~1
 
-REM 默认值
+REM ???
 set PROCESS_NAME=
 set TASK_LIST=RenderThread
 
-REM 根据动效标签设置配置
+REM ??????????
 if /i "%TAG%"=="LAUNCHER_ALL_APPS_SCROLL" (
     set PROCESS_NAME=com.transsion.launcher3
     set TASK_LIST=ssion.launcher3,RenderThread
@@ -215,7 +208,8 @@ if /i "%TAG%"=="VOLUME_CONTROL" (
     goto :EndSetConfig
 )
 
-echo [WARN] 未知的动效标签: %TAG%，使用默认配置
+echo [WARN] ???????: %TAG%???????
 
 :EndSetConfig
 goto :eof
+
